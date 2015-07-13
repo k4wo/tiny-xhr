@@ -1,0 +1,24 @@
+{
+  "name": "tiny-xhr",
+  "version": "1.0.0",
+  "description": "A small library that wrap xmlHttpRequest in es6 promise methods",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/k4wo/tiny-xhr.git"
+  },
+  "keywords": [
+    "xmlHttpRequest",
+    "xhr",
+    "ajax"
+  ],
+  "author": "k4wo <k4wo@outlook.com>",
+  "license": "Apache License",
+  "bugs": {
+    "url": "https://github.com/k4wo/tiny-xhr/issues"
+  },
+  "homepage": "https://github.com/k4wo/tiny-xhr"
+}
