@@ -1,12 +1,13 @@
 Tiny library wraps ajax methods in es6 (native) promise.
 
-You can send data by this library. In this case you have to pass data as a Node or FormData.
-Headers must be in format like in example below.
+Library supports sending data via POST method. You can pass Node or FormData (when you pass Node library convert it to FormData). 
 
-Library uses only two kinds of types - '**multipart**' (multipart/form-data) use it when you'll send data and 
-'**json**' in other cases
- (application/x-www-form-urlencoded or text/plain).
+There is no abbreviation for headers. **headers** have to be in section _headers_ and in format like in example below. 
 
+For simplicity, library uses only two kinds of type:
+* **multipart** - (multipart/form-data) use it only when you'll send data 
+* **json** - (application/x-www-form-urlencoded or text/plain) in other cases :-)
+ 
 
 ```javascript
 var xhr = require('tiny-xhr');
