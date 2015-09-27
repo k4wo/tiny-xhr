@@ -4,34 +4,29 @@ var queryString = require('querystring');
 module.exports = function(opt) {
 	return new Promise(function(resolve, reject) {
 		if( !opt || !opt.url || !opt.method ) {
-			reject('No required options - url and method.');
+			reject('No required options - url and/or method.');
 		}
-		var data = null;
-		var url = opt.url;
-		var method = opt.method;
-		delete opt.url;
-		delete opt.method;
-
-		var xhr = new XMLHttpRequest();
-		xhr.open(method, url, true);
+		var data = null
+				, url = opt.url
+				, method = opt.method.toLowerCase()
+				, xhr = new XMLHttpRequest();
 
 		if( opt.data ) {
-			if( opt.type === 'json' ) {
-				data = queryString.stringify(opt.data);
-			}
-			else if( opt.type === 'multipart' ) {
+			if( opt.type === 'multipart' ) {
 				data = String.prototype.slice.call(opt.data) === '[object FormData]' ? opt.data : new FormData(opt.data);
 			}
 			else {
-				data = opt.data;
+				data = queryString.stringify(opt.data);
 			}
-			delete opt.data;
+
+			if( method === 'get' && opt.type.toLowerCase() === 'json' && data ) {
+				url += '?' + data;
+			}
 		}
-		delete opt.type;
+		xhr.open(method, url, true);
 
 		if( opt.headers ) {
 			setHeaders(opt.headers);
-			delete opt.headers;
 		}
 
 		xhr.onload = function() {
