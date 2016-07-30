@@ -8,7 +8,7 @@ If "type" is set to "form", data will be converted to FormData, "json" type is c
 
 For simplicity, library has such content types:
 * **form** - multipart/form-data
-* **url** - application/x-www-form-urlencoded or text/plain
+* **url** - application/x-www-form-urlencoded
 * **json** - application/json
  
 
