@@ -1,12 +1,15 @@
-Tiny library wraps ajax methods in es6 (native) promise.
+The library's aim is wrap AJAX into ES6 promises and simplify some processes.
 
-Library supports sending data via POST method. You can pass Node or FormData (when you pass Node library convert it to FormData). 
+For example "Tiny-XHR":
+* converts data into the appropriate format
+* sets appropriate headers
 
-There is no abbreviation for **headers** and it have to be in section _headers_ and in format like in example below. 
+If "type" is set to "form", data will be converted to FormData, "json" type is converted to JSON and "url" is just encoded. There is no needed set manually headers because "Tiny-XHR" is doing it automatically (in case of listed below content types).
 
-For simplicity, library uses only two kinds of type:
-* **multipart** - (multipart/form-data) use it only when you'll send data 
-* **json** - (application/x-www-form-urlencoded or text/plain) in other cases :-)
+For simplicity, library has such content types:
+* **form** - multipart/form-data
+* **url** - application/x-www-form-urlencoded or text/plain
+* **json** - application/json
  
 
 ```javascript
@@ -14,10 +17,10 @@ var xhr = require('tiny-xhr');
 var data = document.querySelector('form');
 
 xhr({
-  url: 'some.url',
-  method: 'post',
-  type: 'multipart',
-  data: data,
+  url: 'your_siete',
+  method: 'POST/GET',
+  type: 'form/url/json',
+  data: 'data',
   headers: {
     Content-Type: 'application/xhtml+xml'
   }

@@ -1,6 +1,6 @@
 {
   "name": "tiny-xhr",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "A small library that wrap xmlHttpRequest in es6 promise methods",
   "main": "index.js",
   "scripts": {
