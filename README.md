@@ -4,7 +4,7 @@ For example "Tiny-XHR":
 * converts data into the appropriate format
 * sets appropriate headers
 
-If "type" is set to "form", data will be converted to FormData, "json" type is converted to JSON and "url" is just encoded. There is no needed set manually headers because "Tiny-XHR" is doing it automatically (in case of listed below content types).
+If "type" is set to "form", data will be converted to FormData, "json" type is converted to JSON and "url" is just encoded. There is no needed set manually headers because "Tiny-XHR" is doing it automatically (in case of listed below content types). In section "headers" you can insert your headers that will be added to request.
 
 For simplicity, library has such content types:
 * **form** - multipart/form-data
@@ -17,7 +17,7 @@ var xhr = require('tiny-xhr');
 var data = document.querySelector('form');
 
 xhr({
-  url: 'your_siete',
+  url: 'www',
   method: 'POST/GET',
   type: 'form/url/json',
   data: 'data',
