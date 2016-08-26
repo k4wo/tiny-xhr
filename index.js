@@ -1,7 +1,7 @@
 'use strict'
 var queryString = require('querystring')
 
-module.exports = function(opt) {
+module.exports = function(opt, data) {
 	return new Promise(function(resolve, reject) {
 		if( !opt ) {
 			reject('No required parameters - "url" and "method".')
@@ -32,10 +32,10 @@ module.exports = function(opt) {
 		xhr.onload = function() {
 			if( xhr.readyState === 4 && xhr.status === 200 ) {
 				try {
-					resolve(JSON.parse(xhr.response))
+					resolve({ response: JSON.parse(xhr.response), headers: xhr.getAllResponseHeaders(), data: data })
 				}
 				catch( e ) {
-					resolve(xhr.response)
+					resolve({ response: xhr.response, headers: xhr.getAllResponseHeaders(), data: data })
 				}
 
 			} else {
