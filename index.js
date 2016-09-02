@@ -3,7 +3,7 @@ var queryString = require('querystring')
 
 module.exports = function(opt, data) {
 	return new Promise(function(resolve, reject) {
-		if( !opt ) {
+		if( !opt || opt + "" !== "[object Object]" ) {
 			reject('No required parameters - "url" and "method".')
 			return
 		}
@@ -32,10 +32,10 @@ module.exports = function(opt, data) {
 		xhr.onload = function() {
 			if( xhr.readyState === 4 && xhr.status === 200 ) {
 				try {
-					resolve({ response: JSON.parse(xhr.response), headers: xhr.getAllResponseHeaders(), data: data })
+					resolve({ response: JSON.parse(xhr.response), headers: parseHeaders(xhr), data: data })
 				}
 				catch( e ) {
-					resolve({ response: xhr.response, headers: xhr.getAllResponseHeaders(), data: data })
+					resolve({ response: xhr.response, headers: parseHeaders(xhr), data: data })
 				}
 
 			} else {
@@ -83,6 +83,35 @@ module.exports = function(opt, data) {
 			catch( e ) {
 				return false
 			}
+		}
+
+		function parseHeaders(xhr) {
+
+			return function() {
+				var raw = xhr.getAllResponseHeaders()
+
+				return headersParser(raw)
+			}
+		}
+
+		function headersParser(rawHeaders) {
+			var headers = {};
+			if( !rawHeaders ) {
+				return headers;
+			}
+			var headerPairs = rawHeaders.split('\u000d\u000a');
+			for( var i = 0; i < headerPairs.length; i++ ) {
+				var headerPair = headerPairs[i];
+				// Can't use split() here because it does the wrong thing
+				// if the header value has the string ": " in it.
+				var index = headerPair.indexOf('\u003a\u0020');
+				if( index > 0 ) {
+					var key      = headerPair.substring(0, index);
+					var val      = headerPair.substring(index + 2);
+					headers[key] = val;
+				}
+			}
+			return headers;
 		}
 	})
 }

@@ -1,20 +1,21 @@
-The library's aim is wrap AJAX into ES6 promises and simplify some processes.
+The library's aim is wrap AJAX into ES6 Promise and simplify some processes like converting data and setting proper content type headers, parsing response headers. "Tiny-Xhr" takes two arguments, first Object with request details and second it is specified by user and will be given back with response (see below)
 
 **Main features of "Tiny-Xhr"**:
-* converts data into the appropriate format
-* sets appropriate headers
-* takes two arguments, first Object with Options, second will be given back with response (see below)
+* converting data into the appropriate format
+* setting appropriate content-type headers
+* parsing response
+* parsing response headers
 
-If "type" is set to "form", data will be converted to FormData, "json" type is converted to JSON and "url" is just encoded. There is no needed set manually headers because "Tiny-XHR" is doing it automatically (in case of listed below content types). In section "headers" you can insert your headers that will be added to request.
 
+Library automatically sets appropriate headers and convert data to proper format.
 For simplicity, library has such content types:
-* **form** - multipart/form-data
-* **url** - application/x-www-form-urlencoded
-* **json** - application/json
+* **form** - multipart/form-data, convert data to "FormData"
+* **url** - application/x-www-form-urlencoded, data is just encoded
+* **json** - application/json, data is converted to JSON
 
-Response it Object with three properties.
-* **response** - it's just response
-* **headers** - {String} row headers
+Response is an Object with three properties.
+* **response** - it's just response data
+* **headers** - {Function} provide parsed headers
 * **data** - data that has been passed as second argument
  
 
@@ -28,12 +29,12 @@ xhr({
   type: 'form/url/json',
   data: 'data',
   headers: {
-    Content-Type: 'application/xhtml+xml'
+    "Authorization": "Basic " + btoa("login:pass")
   }
 }, 'second argument')
   .then(function(data) {
     // data.response = it's just response
-    // data.headers = headers
+    // data.headers() = parsed headers {Object}
     // data.data = 'second argument'
   })
   .catch(function(error) {
