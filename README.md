@@ -23,15 +23,17 @@ Response is an Object with three properties.
 var xhr = require('tiny-xhr');
 var data = document.querySelector('form');
 
-xhr({
-  url: 'www',
-  method: 'POST/GET',
-  type: 'form/url/json',
-  data: 'data',
-  headers: {
-    "Authorization": "Basic " + btoa("login:pass")
-  }
-}, 'second argument')
+var options = {
+                url: 'www',
+                method: 'POST/GET',
+                type: 'form/url/json',
+                data: 'data',
+                headers: {
+                  "Authorization": "Basic " + btoa("login:pass")
+                }
+              };
+
+xhr(options, 'second argument')
   .then(function(data) {
     // data.response = it's just response
     // data.headers() = parsed headers {Object}
